@@ -1,2 +1,4 @@
 .idea
 main
+.aws-sam
+bin
