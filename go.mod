@@ -2,6 +2,24 @@ module Trapesys/polygon-edge-assm
 
 go 1.17
 
+replace Trapesys/polygon-edge-assm/framework/adapters/left/lambda => ./framework/adapters/left/lambda
+
+replace Trapesys/polygon-edge-assm/framework/adapters/right/s3storage => ./framework/adapters/right/s3storage
+
+replace Trapesys/polygon-edge-assm/framework/adapters/right/ssm => ./framework/adapters/right/ssm
+
+replace Trapesys/polygon-edge-assm/framework/adapters/right/localstorage => ./framework/adapters/right/localstorage
+
+replace Trapesys/polygon-edge-assm/framework/adapters/right/secretmanager/ssm => ./framework/adapters/right/secretmanager/ssm
+
+replace Trapesys/polygon-edge-assm/framework/ports => ./framework/ports
+
+replace Trapesys/polygon-edge-assm/internal/ports => ./internal/ports
+
+replace Trapesys/polygon-edge-assm/internal/adapters/app => ./internal/adapters/app
+
+replace Trapesys/polygon-edge-assm/internal/adapters/core => ./internal/adapters/core
+
 require (
 	github.com/aws/aws-lambda-go v1.13.3
 	github.com/aws/aws-sdk-go-v2 v1.16.2
@@ -9,7 +27,6 @@ require (
 
 require (
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.1 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.11.2 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.3 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.9 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.3 // indirect
@@ -20,7 +37,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.13.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.11.3 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.3 // indirect
 	github.com/btcsuite/btcd v0.22.0-beta // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -57,8 +73,10 @@ require (
 require (
 	github.com/0xPolygon/polygon-edge v0.3.2
 	github.com/aws/aws-sdk-go-v2/config v1.15.3
+	github.com/aws/aws-sdk-go-v2/credentials v1.11.2
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.5
 	github.com/aws/aws-sdk-go-v2/service/ssm v1.24.1
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.3
 	github.com/aws/smithy-go v1.11.2 // indirect
 	github.com/libp2p/go-libp2p-core v0.15.0
 )

@@ -3,11 +3,15 @@ package secretmanager
 import (
 	"context"
 	"fmt"
+	"os"
+
 	edgeCrypto "github.com/0xPolygon/polygon-edge/crypto"
 	"github.com/0xPolygon/polygon-edge/helper/hex"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"
 	"github.com/aws/aws-sdk-go-v2/service/ssm"
+	"github.com/aws/aws-sdk-go-v2/service/sts"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
@@ -23,10 +27,23 @@ func NewAdapter(region string) *Adapter {
 }
 
 func (a Adapter) getSecret(secretName string) (string, error) {
+	// get environment variable ROLE_ARN
+	roleARN := os.Getenv("ROLE_ARN")
+	if roleARN == "" {
+		return "", fmt.Errorf("could not get environment variable ROLE_ARN")
+	}
+
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(a.region))
 	if err != nil {
 		return "", fmt.Errorf("could not load aws configurtation err=%w", err)
 	}
+
+	// Create the credentials from AssumeRoleProvider to assume the role
+	// referenced by the "myRoleARN" ARN.
+	stsSvc := sts.NewFromConfig(cfg)
+	creds := stscreds.NewAssumeRoleProvider(stsSvc, roleARN)
+
+	cfg.Credentials = aws.NewCredentialsCache(creds)
 
 	client := ssm.NewFromConfig(cfg)
 
