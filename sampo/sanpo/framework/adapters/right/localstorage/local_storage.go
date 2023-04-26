@@ -15,8 +15,8 @@ import (
 	"strings"
 )
 
-// pin the relese to v0.5.1 - before BLS breaking change
-const releaseURL string = "https://api.github.com/repos/0xPolygon/polygon-edge/releases/77894422"
+// pin the relese to v0.6.3 - before supernets
+const releaseURL string = "https://api.github.com/repos/0xPolygon/polygon-edge/releases/88413374"
 
 type Adapter struct {
 }

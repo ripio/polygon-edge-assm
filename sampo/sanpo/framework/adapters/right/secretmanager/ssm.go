@@ -66,7 +66,7 @@ func (a Adapter) GetValidatorKey(key string) (string, error) {
 		return "", fmt.Errorf("could not retreve validator key from ssm err=%w", err)
 	}
 	// Get the validator address from validator-key stored in AWS SSM
-	valPrivKey, err := edgeCrypto.BytesToPrivateKey([]byte(ssmValKey))
+	valPrivKey, err := edgeCrypto.BytesToECDSAPrivateKey([]byte(ssmValKey))
 	if err != nil {
 		return "", fmt.Errorf("could not get validator address from private key: %w", err)
 	}
