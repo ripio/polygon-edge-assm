@@ -56,12 +56,14 @@ func (a *Adapter) generateGenesisCommand() []string {
 					strings.TrimSpace(v.IP),
 					strings.TrimSpace(v.GenesisNetworkID)),
 			)
-		} else {
+		} else if v.DNS != nil && v.DNS != "" {
 			genCmd = append(genCmd,
 				fmt.Sprintf("--bootnode=/dns4/%s/tcp/1478/p2p/%s",
 					strings.TrimSpace(v.DNS),
 					strings.TrimSpace(v.GenesisNetworkID)),
 			)
+		} else {
+			fmt.Printf("Error: IP and DNS are empty for node %s\n", v.NodeName)
 		}
 	}
 
