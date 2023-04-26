@@ -14,7 +14,7 @@ Globals:
 Parameters:
    LambdaRole:
      Type: String
-     Description: "IAM Role ARN for Lambda"
+     Description: "IAM Role ARN for Lambda code to assume role"
 
 Resources:
   SanpoFunction:
@@ -28,13 +28,14 @@ Resources:
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
           ROLE_ARN: !Ref LambdaRole
-      # Policies:
-      #   - Version: '2012-10-17'
-      #     Statement:
-      #       - Effect: Allow
-      #         Action:
-      #           - sts:AssumeRole
-      #         Resource: 
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:*
+              Resource: "*"
 
 
 Outputs:

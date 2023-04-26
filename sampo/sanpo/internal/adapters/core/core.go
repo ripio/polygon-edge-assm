@@ -20,6 +20,7 @@ type Nodes struct {
 type NodeInitInfo struct {
 	SSMParamID string `json:"ssm_param_id"`
 	IP         string `json:"ip"`
+	DNS        string `json:"dns"`
 	NodeName   string `json:"node_name"`
 
 	GenesisValidatorKey string

@@ -80,6 +80,7 @@ func (a *Adapter) LambdaHandler(request core.Core) (string, error) {
 			newNode := core.NodeInitInfo{
 				SSMParamID:          node.SSMParamID,
 				IP:                  node.IP,
+				DNS:                 node.DNS,
 				NodeName:            node.NodeName,
 				GenesisValidatorKey: valKey,
 				GenesisNetworkID:    netwKey,
@@ -130,6 +131,7 @@ func (a *Adapter) SetNodes(recivedConf core.Nodes, existingNodeData string) erro
 	coreStruct.AllNodesInitInfo = append(coreStruct.AllNodesInitInfo, core.NodeInitInfo{
 		SSMParamID: recivedConf.SingleNodeInitInfo.SSMParamID,
 		IP:         recivedConf.SingleNodeInitInfo.IP,
+		DNS:        recivedConf.SingleNodeInitInfo.DNS,
 		NodeName:   recivedConf.SingleNodeInitInfo.NodeName,
 	})
 

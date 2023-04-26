@@ -83,25 +83,3 @@ func (a Adapter) FetchData(key string) (string, error) {
 
 	return "{}", nil
 }
-
-// get object from s3 using role arn
-// func (a Adapter) FetchData(key string) (string, error) {
-// 	// if object does not exist return empty json string
-// 	// because we will create a new object
-// 	listInput := &s3.ListObjectsV2Input{Bucket: a.bucketName}
-// 	s3Objects, err := a.s3.ListObjectsV2(context.TODO(), listInput)
-// 	if err != nil {
-// 		return "", fmt.Errorf("could not list s3 bucket err=%w", err)
-// 	}
-// 	// fetch and return the data only if our S3 object is found
-// 	for _, object := range s3Objects.Contents {
-// 		if *object.Key == key {
-// 			input := &s3.GetObjectInput{
-// 				Bucket: a.bucketName,
-// 				Key:    aws.String(key),
-// 			}
-// 			// fetch s3 object
-// 			s3Object, err := a.s3.GetObject(context.TODO(), input)
-// 			if err != nil {
-// 				return "", fmt.Errorf("could not fetch S3 object err=%w", err)
-// 			}

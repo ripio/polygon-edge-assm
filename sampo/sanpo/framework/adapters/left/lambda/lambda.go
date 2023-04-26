@@ -22,6 +22,7 @@ func (a *Adapter) SetNodes(config core.Core) {
 		SingleNodeInitInfo: core.NodeInitInfo{
 			SSMParamID: config.SingleNodeInitInfo.SSMParamID,
 			IP:         config.SingleNodeInitInfo.IP,
+			DNS:        config.SingleNodeInitInfo.DNS,
 			NodeName:   config.SingleNodeInitInfo.NodeName,
 		},
 	}
