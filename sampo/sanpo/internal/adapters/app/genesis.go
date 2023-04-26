@@ -49,8 +49,8 @@ func (a *Adapter) generateGenesisCommand() []string {
 	// add validators and keys
 	for _, v := range coreData.AllNodesInitInfo {
 		genCmd = append(genCmd, "--ibft-validator="+v.GenesisValidatorKey)
-		// if v.ip is not empty use ip, else use dns
-		if v.IP != "" {
+		// if v.ip is defined and is not empty use ip, else use dns
+		if v.IP != nil && v.IP != "" {
 			genCmd = append(genCmd,
 				fmt.Sprintf("--bootnode=/ip4/%s/tcp/1478/p2p/%s",
 					strings.TrimSpace(v.IP),
