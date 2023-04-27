@@ -17,4 +17,3 @@ jobs:
         goarch: amd64
         project_path: "./sampo/sanpo"
         binary_name: "main"
-        release_name: v0.0.1
