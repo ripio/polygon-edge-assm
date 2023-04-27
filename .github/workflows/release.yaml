@@ -3,30 +3,32 @@ on:
     branches:
       - aws-lambda-add-role-param
 
+
 jobs:
   tags:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-
-  releases-matrix:
+  
+  release:
     name: Release Go Binary
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: wangyoucao577/go-release-action@v1.37
 
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
+
+    - uses: wangyoucao577/go-release-action@v1.37
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: linux
@@ -34,3 +36,4 @@ jobs:
         project_path: "./sampo/sanpo"
         binary_name: "main"
         compress_assets: zip
+        release_name:   Release ${{ steps.tag_version.outputs.new_tag }}
