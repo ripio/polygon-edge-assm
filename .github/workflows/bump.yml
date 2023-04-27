@@ -18,4 +18,4 @@ jobs:
       uses: fwilhe2/bump-version@main
       id: bump
       with:
-        component: ${{ github.event.inputs.component }}
+        component: patch
