@@ -1,6 +1,6 @@
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ "aws-lambda-add-role-param" ]
 
 jobs:
   releases-matrix:
@@ -17,3 +17,4 @@ jobs:
         goarch: amd64
         project_path: "./sampo/sanpo"
         binary_name: "main"
+        compress_assets: zip
