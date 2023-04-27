@@ -3,22 +3,14 @@ on:
     branches: [ "aws-lambda-add-role-param" ]
 
 jobs:
-  release:
+  build:
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
-      - uses: MeilCli/bump-release-action@v1
-        with:
-          config_path: '.github/bump.yml'
-          bump: ${{ github.event.inputs.bump }}
-          dry_run: ${{ github.event.inputs.dry_run }}
-          draft: ${{ github.event.inputs.draft }}
-          pre_release: ${{ github.event.inputs.pre_release }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Get Version Number
+      uses: fwilhe2/bump-version@main
+      id: bump
+      with:
+        component: Get Version Number
