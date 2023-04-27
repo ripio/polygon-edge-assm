@@ -62,4 +62,5 @@ Deploying GO on AWS Lambda [doc](https://docs.aws.amazon.com/lambda/latest/dg/go
 * `NODE_IP` - ip address of the node
 
 ### Chain configuration options
-All chain configuration options are well explained in the [docs](https://docs.polygon.technology/docs/edge/get-started/cli-commands#genesis-flags)  
+All chain configuration options are well explained in the [docs](https://docs.polygon.technology/docs/edge/get-started/cli-commands#genesis-flags) 
+
