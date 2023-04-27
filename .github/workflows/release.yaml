@@ -3,7 +3,6 @@ on:
     branches:
       - aws-lambda-add-role-param
 
-
 jobs:
   release:
     name: Release Go Binary
