@@ -32,6 +32,7 @@ type Config struct {
 	AWSRegion    string `json:"aws_region"`
 	S3BucketName string `json:"s3_bucket_name"`
 	S3KeyName    string `json:"s3_key_name"`
+	SSMRoleARN   string `json:"ssm_role_arn"`
 
 	GenesisConfig
 }

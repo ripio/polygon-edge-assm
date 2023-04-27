@@ -3,7 +3,6 @@ package secretmanager
 import (
 	"context"
 	"fmt"
-	"os"
 
 	edgeCrypto "github.com/0xPolygon/polygon-edge/crypto"
 	"github.com/0xPolygon/polygon-edge/helper/hex"
@@ -17,22 +16,18 @@ import (
 )
 
 type Adapter struct {
-	region string
+	region  string
+	roleARN string
 }
 
-func NewAdapter(region string) *Adapter {
+func NewAdapter(region string, ssmRoleARN string) *Adapter {
 	return &Adapter{
-		region: region,
+		region:  region,
+		roleARN: ssmRoleARN,
 	}
 }
 
 func (a Adapter) getSecret(secretName string) (string, error) {
-	// get environment variable ROLE_ARN
-	roleARN := os.Getenv("ROLE_ARN")
-	if roleARN == "" {
-		return "", fmt.Errorf("could not get environment variable ROLE_ARN")
-	}
-
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(a.region))
 	if err != nil {
 		return "", fmt.Errorf("could not load aws configurtation err=%w", err)
@@ -41,7 +36,7 @@ func (a Adapter) getSecret(secretName string) (string, error) {
 	// Create the credentials from AssumeRoleProvider to assume the role
 	// referenced by the "myRoleARN" ARN.
 	stsSvc := sts.NewFromConfig(cfg)
-	creds := stscreds.NewAssumeRoleProvider(stsSvc, roleARN)
+	creds := stscreds.NewAssumeRoleProvider(stsSvc, a.roleARN)
 
 	cfg.Credentials = aws.NewCredentialsCache(creds)
 

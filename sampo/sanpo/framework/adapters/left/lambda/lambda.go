@@ -46,6 +46,7 @@ func (a *Adapter) SetConfig(config core.Core) {
 	a.config.AWSRegion = config.Config.AWSRegion
 	a.config.S3BucketName = config.Config.S3BucketName
 	a.config.S3KeyName = config.Config.S3KeyName
+	a.config.SSMRoleARN = config.Config.SSMRoleARN
 }
 
 func (a Adapter) GetConfig() core.Config {

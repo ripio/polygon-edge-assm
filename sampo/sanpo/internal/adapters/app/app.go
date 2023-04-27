@@ -41,7 +41,7 @@ func (a *Adapter) LambdaHandler(request core.Core) (string, error) {
 
 	a.s3Storage = s3Api
 	// storage needs to be instantiated here as we need to set up a region
-	a.assm = secretmanager.NewAdapter(conf.AWSRegion)
+	a.assm = secretmanager.NewAdapter(conf.AWSRegion, conf.SSMRoleARN)
 
 	// fetch existing node data
 	existingNodeData, err := a.s3Storage.FetchData(conf.S3KeyName)
@@ -160,6 +160,7 @@ func (a *Adapter) SetConfig(receivedConf core.Config) error {
 	conf.AWSRegion = receivedConf.AWSRegion
 	conf.S3KeyName = receivedConf.S3KeyName
 	conf.S3BucketName = receivedConf.S3BucketName
+	conf.SSMRoleARN = receivedConf.SSMRoleARN
 	// genesis config
 	conf.ChainName = receivedConf.ChainName
 	conf.Premine = receivedConf.Premine

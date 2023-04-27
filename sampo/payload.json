@@ -9,9 +9,10 @@
         "pos": false,
         "epoch_size": "100",
         "block_gas_limit": "10000000",
-        "max_validator_count": "4",
+        "max_validator_count": "6",
         "min_validator_count": "1",
-        "consensus": "ibft"
+        "consensus": "ibft",
+        "ssm_role_arn": "arn:aws:iam::502417228565:policy/get_parameters_validators"
     },
     "nodes": {
         "total": 1,
