@@ -1,7 +1,12 @@
 on:
   push:
     branches: [ "aws-lambda-add-role-param" ]
-
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Version component to increment'
+        required: true
+        default: 'patch'
 jobs:
   build:
     name: Create Release
@@ -13,4 +18,4 @@ jobs:
       uses: fwilhe2/bump-version@main
       id: bump
       with:
-        component: Get Version Number
+        component: ${{ github.event.inputs.component }}
