@@ -63,5 +63,3 @@ Deploying GO on AWS Lambda [doc](https://docs.aws.amazon.com/lambda/latest/dg/go
 
 ### Chain configuration options
 All chain configuration options are well explained in the [docs](https://docs.polygon.technology/docs/edge/get-started/cli-commands#genesis-flags)  
-
-
