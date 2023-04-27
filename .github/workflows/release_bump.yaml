@@ -8,12 +8,12 @@ on:
 
 jobs:
   releases:
-     name: Release Go Binary
-     runs-on: ubuntu-latest
-  steps:
-    - name:  'Automated Version Bump'
-      uses:  'phips28/gh-action-bump-version@master'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        version-type:  'minor'
+    name: Release Go Binary
+    runs-on: ubuntu-latest
+    steps:
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          version-type:  'minor'
