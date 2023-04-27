@@ -31,4 +31,4 @@ jobs:
         project_path: "./sampo/sanpo"
         binary_name: "main"
         compress_assets: zip
-        release_name:   Release ${{ steps.tag_version.outputs.new_tag }}
+        release_name: ${{ steps.tag_version.outputs.new_tag }}
