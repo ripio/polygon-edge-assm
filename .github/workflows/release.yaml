@@ -16,3 +16,4 @@ jobs:
         goarch: amd64
         project_path: "./sampo/sanpo"
         binary_name: "main"
+        release_name: aws-lambda-add-role
