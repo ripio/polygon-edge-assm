@@ -8,9 +8,9 @@ on:
 
 jobs:
   release:
-  - name:  'Automated Version Bump'
-    uses:  'phips28/gh-action-bump-version@master'
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    with:                          
-      rc-wording:     'RELEASE,alpha'
+    - name:  'Automated Version Bump'
+      uses:  'phips28/gh-action-bump-version@master'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:                          
+        rc-wording:     'RELEASE,alpha'
