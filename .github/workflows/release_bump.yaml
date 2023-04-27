@@ -7,29 +7,17 @@ on:
       - aws-lambda-add-role-param
 
 jobs:
-  bump-version:
-    name: 'Bump Version on master'
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      
     steps:
-      - name: 'Checkout source code'
-        uses: 'actions/checkout@v2'
-        with:
-          ref: ${{ github.ref }}
-      - name: 'cat package.json'
-        run: cat ./package.json
-      - name: 'Automated Version Bump'
-        id: version-bump
-        uses: 'phips28/gh-action-bump-version@master'
-        with:
-          tag-prefix: 'v'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'cat package.json'
-        run: cat ./package.json
-      - name: 'Output Step'
-        env:
-          NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
-        run: echo "new tag $NEW_TAG"
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: '0'
+
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.61.0 # Don't use @master unless you're happy to test the latest version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
+        PRERELEASE: true
