@@ -14,7 +14,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: linux
         goarch: amd64
-        goversion: "https://dl.google.com/go/go1.13.1.linux-amd64.tar.gz"
         project_path: "./sampo/sanpo"
         binary_name: "main"
         extra_files: LICENSE README.md
