@@ -2,6 +2,9 @@
 name: Release
 
 on:
+  push:
+    branches:
+      - aws-lambda-add-role-param
   workflow_dispatch:
     inputs:
       bump:
