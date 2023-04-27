@@ -1,6 +1,6 @@
 on:
-  push:
-    branches: [ "aws-lambda-add-role-param" ]
+  release:
+    types: [created]
 
 jobs:
   releases-matrix:
