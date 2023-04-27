@@ -16,4 +16,3 @@ jobs:
         goarch: amd64
         project_path: "./sampo/sanpo"
         binary_name: "main"
-        extra_files: LICENSE README.md
