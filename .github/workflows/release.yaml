@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - aws-lambda-add-role-param
+      - master
 
 jobs:
   release:
