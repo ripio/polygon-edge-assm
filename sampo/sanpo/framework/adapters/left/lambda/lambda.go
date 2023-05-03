@@ -24,6 +24,7 @@ func (a *Adapter) SetNodes(config core.Core) {
 			IP:         config.SingleNodeInitInfo.IP,
 			DNS:        config.SingleNodeInitInfo.DNS,
 			NodeName:   config.SingleNodeInitInfo.NodeName,
+			SSMRoleARN: config.SingleNodeInitInfo.SSMRoleARN,
 		},
 	}
 }
@@ -46,7 +47,6 @@ func (a *Adapter) SetConfig(config core.Core) {
 	a.config.AWSRegion = config.Config.AWSRegion
 	a.config.S3BucketName = config.Config.S3BucketName
 	a.config.S3KeyName = config.Config.S3KeyName
-	a.config.SSMRoleARN = config.Config.SSMRoleARN
 }
 
 func (a Adapter) GetConfig() core.Config {

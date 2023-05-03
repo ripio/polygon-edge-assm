@@ -11,8 +11,7 @@
         "block_gas_limit": "10000000",
         "max_validator_count": "6",
         "min_validator_count": "1",
-        "consensus": "ibft",        
-        "ssm_role_arn": "arn:aws:iam::123456789012:policy/get_parameters_validators"
+        "consensus": "ibft"
     },
     "nodes": {
         "total": 1,
@@ -20,7 +19,8 @@
             "ssm_param_id": "/polygon-edge-validators",
             "node_name": "node-us-west-2a",
             "ip": "192.168.0.10",
-            "dns": "node-us-west-2a.polygon-edge.com"
+            "dns": "node-us-west-2a.polygon-edge.com",
+            "ssm_role_arn": "arn:aws:iam::123456789012:policy/get_parameters_validators"
         }
     }
   }

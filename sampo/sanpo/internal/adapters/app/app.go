@@ -41,7 +41,7 @@ func (a *Adapter) LambdaHandler(request core.Core) (string, error) {
 
 	a.s3Storage = s3Api
 	// storage needs to be instantiated here as we need to set up a region
-	a.assm = secretmanager.NewAdapter(conf.AWSRegion, conf.SSMRoleARN)
+	a.assm = secretmanager.NewAdapter(conf.AWSRegion)
 
 	// fetch existing node data
 	existingNodeData, err := a.s3Storage.FetchData(conf.S3KeyName)
@@ -66,12 +66,12 @@ func (a *Adapter) LambdaHandler(request core.Core) (string, error) {
 
 		// fetch ssm stored keys and translate them to genesis accepted format
 		for i, node := range nodesInfo.AllNodesInitInfo {
-			valKey, err := a.assm.GetValidatorKey(fmt.Sprintf("/%s/%s/validator-key", node.SSMParamID, node.NodeName))
+			valKey, err := a.assm.GetValidatorKey(fmt.Sprintf("/%s/%s/validator-key", node.SSMParamID, node.NodeName), node.SSMRoleARN)
 			if err != nil {
 				return "", err
 			}
 
-			netwKey, err := a.assm.GetNetworkKey(fmt.Sprintf("/%s/%s/network-key", node.SSMParamID, node.NodeName))
+			netwKey, err := a.assm.GetNetworkKey(fmt.Sprintf("/%s/%s/network-key", node.SSMParamID, node.NodeName), node.SSMRoleARN)
 			if err != nil {
 				return "", err
 			}
@@ -84,6 +84,7 @@ func (a *Adapter) LambdaHandler(request core.Core) (string, error) {
 				NodeName:            node.NodeName,
 				GenesisValidatorKey: valKey,
 				GenesisNetworkID:    netwKey,
+				SSMRoleARN:          node.SSMRoleARN,
 			}
 
 			nodesInfo.AllNodesInitInfo[i] = newNode
@@ -133,6 +134,7 @@ func (a *Adapter) SetNodes(recivedConf core.Nodes, existingNodeData string) erro
 		IP:         recivedConf.SingleNodeInitInfo.IP,
 		DNS:        recivedConf.SingleNodeInitInfo.DNS,
 		NodeName:   recivedConf.SingleNodeInitInfo.NodeName,
+		SSMRoleARN: recivedConf.SingleNodeInitInfo.SSMRoleARN,
 	})
 
 	return nil
@@ -160,7 +162,6 @@ func (a *Adapter) SetConfig(receivedConf core.Config) error {
 	conf.AWSRegion = receivedConf.AWSRegion
 	conf.S3KeyName = receivedConf.S3KeyName
 	conf.S3BucketName = receivedConf.S3BucketName
-	conf.SSMRoleARN = receivedConf.SSMRoleARN
 	// genesis config
 	conf.ChainName = receivedConf.ChainName
 	conf.Premine = receivedConf.Premine

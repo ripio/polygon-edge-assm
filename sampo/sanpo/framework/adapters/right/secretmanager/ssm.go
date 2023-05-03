@@ -20,14 +20,13 @@ type Adapter struct {
 	roleARN string
 }
 
-func NewAdapter(region string, ssmRoleARN string) *Adapter {
+func NewAdapter(region string) *Adapter {
 	return &Adapter{
-		region:  region,
-		roleARN: ssmRoleARN,
+		region: region,
 	}
 }
 
-func (a Adapter) getSecret(secretName string) (string, error) {
+func (a Adapter) getSecret(secretName string, roleARN string) (string, error) {
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(a.region))
 	if err != nil {
 		return "", fmt.Errorf("could not load aws configurtation err=%w", err)
@@ -36,7 +35,7 @@ func (a Adapter) getSecret(secretName string) (string, error) {
 	// Create the credentials from AssumeRoleProvider to assume the role
 	// referenced by the "myRoleARN" ARN.
 	stsSvc := sts.NewFromConfig(cfg)
-	creds := stscreds.NewAssumeRoleProvider(stsSvc, a.roleARN)
+	creds := stscreds.NewAssumeRoleProvider(stsSvc, roleARN)
 
 	cfg.Credentials = aws.NewCredentialsCache(creds)
 
@@ -54,9 +53,9 @@ func (a Adapter) getSecret(secretName string) (string, error) {
 	return *param.Parameter.Value, nil
 }
 
-func (a Adapter) GetValidatorKey(key string) (string, error) {
+func (a Adapter) GetValidatorKey(key string, roleARN string) (string, error) {
 	// get ssm stored key
-	ssmValKey, err := a.getSecret(key)
+	ssmValKey, err := a.getSecret(key, roleARN)
 	if err != nil {
 		return "", fmt.Errorf("could not retreve validator key from ssm err=%w", err)
 	}
@@ -74,8 +73,8 @@ func (a Adapter) GetValidatorKey(key string) (string, error) {
 	return valAddr.String(), nil
 }
 
-func (a Adapter) GetNetworkKey(id string) (string, error) {
-	ssmNetworkID, err := a.getSecret(id)
+func (a Adapter) GetNetworkKey(id string, roleARN string) (string, error) {
+	ssmNetworkID, err := a.getSecret(id, roleARN)
 	if err != nil {
 		return "", fmt.Errorf("could not retreve network id from ssm err=%w", err)
 	}
